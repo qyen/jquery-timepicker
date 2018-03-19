@@ -76,7 +76,7 @@ class Timepicker {
     var seconds = time[4] * 1 || 0;
 
     if (hour <= 12 && ampm) {
-      var isPm = ampm == _lang.pm || ampm == _lang.PM;
+      var isPm = ampm == this.settings.lang.pm || ampm == this.settings.lang.PM;
 
       if (hour == 12) {
         hours = isPm ? 12 : 0;
