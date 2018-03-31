@@ -4,8 +4,10 @@
  * License: MIT
  */
 
-import jQuery from 'jquery';
+// import jQuery from 'jquery';
 import Timepicker from './timepicker';
+import moduloSeconds from './timepicker/rounding';
+import { ONE_DAY } from './timepicker/constants';
 
 (function(factory) {
   if (
@@ -25,69 +27,7 @@ import Timepicker from './timepicker';
     factory(jQuery);
   }
 })(function($) {
-  var _ONE_DAY = 86400;
-  var _lang = {
-    am: "am",
-    pm: "pm",
-    AM: "AM",
-    PM: "PM",
-    decimal: ".",
-    mins: "mins",
-    hr: "hr",
-    hrs: "hrs"
-  };
-
-  var _DEFAULTS = {
-    appendTo: "body",
-    className: null,
-    closeOnWindowScroll: false,
-    disableTextInput: false,
-    disableTimeRanges: [],
-    disableTouchKeyboard: false,
-    durationTime: null,
-    forceRoundTime: false,
-    maxTime: null,
-    minTime: null,
-    noneOption: false,
-    orientation: "l",
-    roundingFunction: function(seconds, settings) {
-      if (seconds === null) {
-        return null;
-      } else if (typeof settings.step !== "number") {
-        // TODO: nearest fit irregular steps
-        return seconds;
-      } else {
-        var offset = seconds % (settings.step * 60); // step is in minutes
-
-        var start = settings.minTime || 0;
-
-        // adjust offset by start mod step so that the offset is aligned not to 00:00 but to the start
-        offset -= start % (settings.step * 60);
-
-        if (offset >= settings.step * 30) {
-          // if offset is larger than a half step, round up
-          seconds += settings.step * 60 - offset;
-        } else {
-          // round down
-          seconds -= offset;
-        }
-
-        return _moduloSeconds(seconds, settings);
-      }
-    },
-    scrollDefault: null,
-    selectOnBlur: false,
-    show2400: false,
-    showDuration: false,
-    showOn: ["click", "focus"],
-    showOnFocus: true,
-    step: 30,
-    stopScrollPropagation: false,
-    timeFormat: "g:ia",
-    typeaheadHighlight: true,
-    useSelect: false,
-    wrapHours: true
-  };
+  var _lang = {};
 
   var methods = {
     init: function(options) {
@@ -504,20 +444,20 @@ import Timepicker from './timepicker';
     }
     var start = settings.minTime !== null ? settings.minTime : 0;
     var end =
-      settings.maxTime !== null ? settings.maxTime : start + _ONE_DAY - 1;
+      settings.maxTime !== null ? settings.maxTime : start + ONE_DAY - 1;
 
     if (end < start) {
       // make sure the end time is greater than start time, otherwise there will be no list to show
-      end += _ONE_DAY;
+      end += ONE_DAY;
     }
 
     if (
-      end === _ONE_DAY - 1 &&
+      end === ONE_DAY - 1 &&
       $.type(settings.timeFormat) === "string" &&
       settings.show2400
     ) {
       // show a 24:00 option when using military time
-      end = _ONE_DAY;
+      end = ONE_DAY;
     }
 
     var dr = settings.disableTimeRanges;
@@ -541,11 +481,11 @@ import Timepicker from './timepicker';
       } else {
         var row = $("<li />");
         row.addClass(
-          timeInt % _ONE_DAY < _ONE_DAY / 2
+          timeInt % ONE_DAY < ONE_DAY / 2
             ? "ui-timepicker-am"
             : "ui-timepicker-pm"
         );
-        row.data("time", _moduloSeconds(timeInt, settings));
+        row.data("time", moduloSeconds(timeInt, settings));
         row.text(timeString);
       }
 
@@ -1134,7 +1074,7 @@ import Timepicker from './timepicker';
 
         case "G":
           hour = time.getHours();
-          if (timeInt === _ONE_DAY) hour = settings.show2400 ? 24 : 0;
+          if (timeInt === ONE_DAY) hour = settings.show2400 ? 24 : 0;
           output += hour;
           break;
 
@@ -1150,7 +1090,7 @@ import Timepicker from './timepicker';
 
         case "H":
           hour = time.getHours();
-          if (timeInt === _ONE_DAY) hour = settings.show2400 ? 24 : 0;
+          if (timeInt === ONE_DAY) hour = settings.show2400 ? 24 : 0;
           output += hour > 9 ? hour : "0" + hour;
           break;
 
@@ -1180,14 +1120,6 @@ import Timepicker from './timepicker';
 
   function _pad2(n) {
     return ("0" + n).slice(-2);
-  }
-
-  function _moduloSeconds(seconds, settings) {
-    if (seconds == _ONE_DAY && settings.show2400) {
-      return seconds;
-    }
-
-    return seconds % _ONE_DAY;
   }
 
   // Plugin entry
