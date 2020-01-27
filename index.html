@@ -4,7 +4,8 @@
 <head>
 	<meta charset='utf-8'>
 	<title>Timepicker for jQuery &ndash; Demos and Documentation</title>
-	<meta name="description" content="A lightweight, customizable jQuery timepicker plugin inspired by Google Calendar. Add a user-friendly javascript timepicker dropdown to your app in minutes." />
+	<meta name="description"
+		content="A lightweight, customizable jQuery timepicker plugin inspired by Google Calendar. Add a user-friendly javascript timepicker dropdown to your app in minutes." />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="jquery.timepicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="jquery.timepicker.css" />
@@ -21,16 +22,49 @@
 			A lightweight, customizable javascript timepicker plugin for jQuery inspired by Google Calendar.
 		</p>
 		<ul id="header-links">
-			<li><a href="https://github.com/jonthornton/jquery-timepicker#timepicker-plugin-for-jquery">Documentation</a></li>
+			<li><a
+					href="https://github.com/jonthornton/jquery-timepicker#timepicker-plugin-for-jquery">Documentation</a>
+			</li>
 			<li><a href="https://github.com/jonthornton/jquery-timepicker">Source code on GitHub</a></li>
 			<li><a href="https://github.com/jonthornton/jquery-timepicker/zipball/master">Download (zip)</a></li>
 			<li><a href="https://github.com/jonthornton/jquery-timepicker/issues?state=open">Help</a></li>
 		</ul>
 	</header>
 	<section>
-		<p class="body-text">Use this plugin to unobtrusively add a timepicker dropdown to your forms. It's lightweight (2.7kb minified and gzipped) and easy to customize.</p>
+		<p class="body-text">Use this plugin to unobtrusively add a timepicker dropdown to your forms. It's lightweight
+			(2.7kb minified and gzipped) and easy to customize.</p>
 	</section>
 	<section id="examples">
+		<article>
+			<div class="demo">
+				<h2>use</h2>
+				<p>
+					<input id="be" type="text" class="time" />
+					<input type="text" placeholder="dummyNextControl" />
+				</p>
+			</div>
+			<script>
+				$(function () {
+					$('#be').timepicker({
+						'step': 15,
+						'canOver2400': true,
+						timeFormat: function (d) {
+							//console.log(d);
+							let h = d.getHours();
+							let m = d.getMinutes();
+							let carryover = d.getDate() - 2;
+							if (carryover > 0) {
+								h += (24 * carryover);
+							}
+							return ('00' + h).slice(-2) + ":" + ('00' + m).slice(-2);
+						},
+					}
+
+					);
+				});
+			</script>
+			<pre class="code" data-language="javascript">$('#basicExample').timepicker();</pre>
+		</article>
 		<article>
 			<div class="demo">
 				<h2>Basic Example</h2>
@@ -39,9 +73,9 @@
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#basicExample').timepicker();
-			});
+				$(function () {
+					$('#basicExample').timepicker();
+				});
 			</script>
 			<pre class="code" data-language="javascript">$('#basicExample').timepicker();</pre>
 		</article>
@@ -54,11 +88,12 @@
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#scrollDefaultExample').timepicker({ 'scrollDefault': 'now' });
-			});
+				$(function () {
+					$('#scrollDefaultExample').timepicker({ 'scrollDefault': 'now' });
+				});
 			</script>
-			<pre class="code" data-language="javascript">$('#scrollDefaultExample').timepicker({ 'scrollDefault': 'now' });</pre>
+			<pre class="code"
+				data-language="javascript">$('#scrollDefaultExample').timepicker({ 'scrollDefault': 'now' });</pre>
 		</article>
 		<article>
 			<div class="demo">
@@ -70,12 +105,12 @@
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#setTimeExample').timepicker();
-				$('#setTimeButton').on('click', function() {
-					$('#setTimeExample').timepicker('setTime', new Date());
+				$(function () {
+					$('#setTimeExample').timepicker();
+					$('#setTimeButton').on('click', function () {
+						$('#setTimeExample').timepicker('setTime', new Date());
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">$('#setTimeExample').timepicker();
 $('#setTimeButton').on('click', function (){
@@ -85,19 +120,20 @@ $('#setTimeButton').on('click', function (){
 		<article>
 			<div class="demo">
 				<h2>Duration Example</h2>
-				<p>Set a starting time and see duration from that starting time. You can optionally set an maxTime as well.</p>
+				<p>Set a starting time and see duration from that starting time. You can optionally set an maxTime as
+					well.</p>
 				<p>
 					<input id="durationExample" type="text" class="time" />
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#durationExample').timepicker({
-					'minTime': '2:00pm',
-					'maxTime': '11:30pm',
-					'showDuration': true
+				$(function () {
+					$('#durationExample').timepicker({
+						'minTime': '2:00pm',
+						'maxTime': '11:30pm',
+						'showDuration': true
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">$('#durationExample').timepicker({
 	'minTime': '2:00pm',
@@ -115,12 +151,12 @@ $('#setTimeButton').on('click', function (){
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#onselectExample').timepicker();
-				$('#onselectExample').on('changeTime', function() {
-					$('#onselectTarget').text($(this).val());
+				$(function () {
+					$('#onselectExample').timepicker();
+					$('#onselectExample').on('changeTime', function () {
+						$('#onselectTarget').text($(this).val());
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">$('#onselectExample').timepicker();
 $('#onselectExample').on('changeTime', function() {
@@ -136,12 +172,14 @@ $('#onselectExample').on('changeTime', function() {
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#disableTimeRangesExample').timepicker({ 'disableTimeRanges': [
-						['1am', '2am'],
-						['3am', '4:01am']
-					] });
-			});
+				$(function () {
+					$('#disableTimeRangesExample').timepicker({
+						'disableTimeRanges': [
+							['1am', '2am'],
+							['3am', '4:01am']
+						]
+					});
+				});
 			</script>
 			<pre class="code" data-language="javascript">$('#disableTimeRangesExample').timepicker({
 	'disableTimeRanges': [
@@ -159,17 +197,17 @@ $('#onselectExample').on('changeTime', function() {
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#noneOptionExample').timepicker({
-					'noneOption': [{
+				$(function () {
+					$('#noneOptionExample').timepicker({
+						'noneOption': [{
 							'label': 'Foobar',
 							'className': 'shibby',
 							'value': '42'
 						},
-						'Foobar2'
-					]
+							'Foobar2'
+						]
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">
 $('#noneOptionExample').timepicker({
@@ -187,17 +225,18 @@ $('#noneOptionExample').timepicker({
 		<article>
 			<div class="demo">
 				<h2>timeFormat Example</h2>
-				<p>timepicker.jquery uses the time portion of <a href="http://php.net/manual/en/function.date.php">PHP's date formatting commands</a>.</p>
+				<p>timepicker.jquery uses the time portion of <a href="http://php.net/manual/en/function.date.php">PHP's
+						date formatting commands</a>.</p>
 				<p>
 					<input id="timeformatExample1" type="text" class="time" />
 					<input id="timeformatExample2" type="text" class="time" />
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#timeformatExample1').timepicker({ 'timeFormat': 'H:i:s' });
-				$('#timeformatExample2').timepicker({ 'timeFormat': 'h:i A' });
-			});
+				$(function () {
+					$('#timeformatExample1').timepicker({ 'timeFormat': 'H:i:s' });
+					$('#timeformatExample2').timepicker({ 'timeFormat': 'h:i A' });
+				});
 			</script>
 			<pre class="code" data-language="javascript">$('#timeformatExample1').timepicker({ 'timeFormat': 'H:i:s' });
 $('#timeformatExample2').timepicker({ 'timeFormat': 'h:i A' });</pre>
@@ -212,14 +251,14 @@ $('#timeformatExample2').timepicker({ 'timeFormat': 'h:i A' });</pre>
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#stepExample1').timepicker({ 'step': 15 });
-				$('#stepExample2').timepicker({
-					'step': function(i) {
-						return (i % 2) ? 15 : 45;
-					}
+				$(function () {
+					$('#stepExample1').timepicker({ 'step': 15 });
+					$('#stepExample2').timepicker({
+						'step': function (i) {
+							return (i % 2) ? 15 : 45;
+						}
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">$('#stepExample1').timepicker({ 'step': 15 });
 $('#stepExample2').timepicker({
@@ -231,16 +270,18 @@ $('#stepExample2').timepicker({
 		<article>
 			<div class="demo">
 				<h2>forceRoundTime Example</h2>
-				<p>jquery-timepicker allows entering times via the keyboard. Setting forceRoundTime to true will round the entered time to the nearest option on the dropdown list.</p>
+				<p>jquery-timepicker allows entering times via the keyboard. Setting forceRoundTime to true will round
+					the entered time to the nearest option on the dropdown list.</p>
 				<p>
 					<input id="roundTimeExample" type="text" class="time" /> </p>
 			</div>
 			<script>
-			$(function() {
-				$('#roundTimeExample').timepicker({ 'forceRoundTime': true });
-			});
+				$(function () {
+					$('#roundTimeExample').timepicker({ 'forceRoundTime': true });
+				});
 			</script>
-			<pre class="code" data-language="javascript">$('#roundTimeExample').timepicker({ 'forceRoundTime': true });</pre>
+			<pre class="code"
+				data-language="javascript">$('#roundTimeExample').timepicker({ 'forceRoundTime': true });</pre>
 		</article>
 		<article>
 			<div class="demo">
@@ -252,13 +293,13 @@ $('#stepExample2').timepicker({
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#selectExample').timepicker();
-				$('#selectButton').click(function(e) {
-					$('#selectExample').timepicker('option', { useSelect: true });
-					$(this).hide();
+				$(function () {
+					$('#selectExample').timepicker();
+					$('#selectButton').click(function (e) {
+						$('#selectExample').timepicker('option', { useSelect: true });
+						$(this).hide();
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">$('#selectExample').timepicker();
 $('#selectButton').click(function(e) {
@@ -275,12 +316,12 @@ $('#selectButton').click(function(e) {
 				</p>
 			</div>
 			<script>
-			$(function() {
-				$('#spanExample').timepicker();
-				$('#openSpanExample').on('click', function() {
-					$('#spanExample').timepicker('show');
+				$(function () {
+					$('#spanExample').timepicker();
+					$('#openSpanExample').on('click', function () {
+						$('#spanExample').timepicker('show');
+					});
 				});
-			});
 			</script>
 			<pre class="code" data-language="javascript">$('#spanExample').timepicker();
 	$('#openSpanExample').on('click', function(){
@@ -290,7 +331,8 @@ $('#selectButton').click(function(e) {
 		<article>
 			<div class="demo">
 				<h2>Datepair Plugin Example</h2>
-				<p>jquery-timepicker is designed to work with the <a href="http://jonthornton.github.com/Datepair.js">jquery-datepair plugin</a>.
+				<p>jquery-timepicker is designed to work with the <a
+						href="http://jonthornton.github.com/Datepair.js">jquery-datepair plugin</a>.
 					<p id="datepairExample">
 						<input type="text" class="date start" />
 						<input type="text" class="time start" /> to
@@ -301,17 +343,17 @@ $('#selectButton').click(function(e) {
 			<script src="http://jonthornton.github.io/Datepair.js/dist/datepair.js"></script>
 			<script src="http://jonthornton.github.io/Datepair.js/dist/jquery.datepair.js"></script>
 			<script>
-			$('#datepairExample .time').timepicker({
-				'showDuration': true,
-				'timeFormat': 'g:ia'
-			});
+				$('#datepairExample .time').timepicker({
+					'showDuration': true,
+					'timeFormat': 'g:ia'
+				});
 
-			$('#datepairExample .date').datepicker({
-				'format': 'm/d/yyyy',
-				'autoclose': true
-			});
+				$('#datepairExample .date').datepicker({
+					'format': 'm/d/yyyy',
+					'autoclose': true
+				});
 
-			$('#datepairExample').datepair();
+				$('#datepairExample').datepair();
 			</script>
 			<pre class="code" data-language="javascript">
 &lt;p id="datepairExample"&gt;
@@ -342,26 +384,28 @@ $('#selectButton').click(function(e) {
 	</section>
 	<section>
 		<h2>Need Help?</h2>
-		<p>Check <a href="https://github.com/jonthornton/jquery-timepicker#timepicker-plugin-for-jquery">the documentation</a> or <a href="https://github.com/jonthornton/jquery-timepicker/issues?state=open">submit an issue</a> on GitHub.</p>
+		<p>Check <a href="https://github.com/jonthornton/jquery-timepicker#timepicker-plugin-for-jquery">the
+				documentation</a> or <a href="https://github.com/jonthornton/jquery-timepicker/issues?state=open">submit
+				an issue</a> on GitHub.</p>
 	</section>
 	<footer>
 		<p>&copy; 2014 <a href="http://jonthornton.com">Jon Thornton</a></p>
 	</footer>
 	<script>
-	(function(i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
-		a = s.createElement(o),
-			m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-	ga('create', 'UA-15605525-4', 'auto');
-	ga('send', 'pageview');
+		ga('create', 'UA-15605525-4', 'auto');
+		ga('send', 'pageview');
 	</script>
 	</div>
 </body>

@@ -17,6 +17,11 @@ declare namespace Jt.Timepicker {
          */
         appendTo?: string | JQuery | ((clickedElement: JQuery) => JQuery);
         /**
+         * Default: false
+         * Control can input over 24:00 ,ex 28:00
+         */
+        canOver2400?: boolean;
+        /**
          * Default: null
          * A class name to apply to the HTML element that contains the timepicker dropdown.
          */
