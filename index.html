@@ -37,36 +37,6 @@
 	<section id="examples">
 		<article>
 			<div class="demo">
-				<h2>use</h2>
-				<p>
-					<input id="be" type="text" class="time" />
-					<input type="text" placeholder="dummyNextControl" />
-				</p>
-			</div>
-			<script>
-				$(function () {
-					$('#be').timepicker({
-						'step': 15,
-						'canOver2400': true,
-						timeFormat: function (d) {
-							//console.log(d);
-							let h = d.getHours();
-							let m = d.getMinutes();
-							let carryover = d.getDate() - 2;
-							if (carryover > 0) {
-								h += (24 * carryover);
-							}
-							return ('00' + h).slice(-2) + ":" + ('00' + m).slice(-2);
-						},
-					}
-
-					);
-				});
-			</script>
-			<pre class="code" data-language="javascript">$('#basicExample').timepicker();</pre>
-		</article>
-		<article>
-			<div class="demo">
 				<h2>Basic Example</h2>
 				<p>
 					<input id="basicExample" type="text" class="time" />
@@ -381,6 +351,51 @@ $('#selectButton').click(function(e) {
 	$('#datepairExample').datepair();
 &lt;/script&gt;</pre>
 		</article>
+		<article>
+			<div class="demo">
+				<h2>Input Over 24:00 time</h2>
+				<p>
+					<input id="be" type="text" class="time" />
+				</p>
+			</div>
+			<script>
+				$(function () {
+					$('#be').timepicker({
+						'step': 15,
+						'canOver2400': true,
+						timeFormat: function (d) {
+							let h = d.getHours();
+							let m = d.getMinutes();
+							let carryover = d.getDate() - 2;
+							if (carryover > 0) {
+								h += (24 * carryover);
+							}
+							return ('00' + h).slice(-2) + ":" + ('00' + m).slice(-2);
+						},
+					}
+
+					);
+				});
+			</script>
+			<pre class="code" data-language="javascript">
+$(function () {
+	$('#be').timepicker({
+		'step': 15,
+		'canOver2400': true,
+		timeFormat: function (d) {
+			let h = d.getHours();
+			let m = d.getMinutes();
+			let carryover = d.getDate() - 2;
+			if (carryover > 0) {
+				h += (24 * carryover);
+			}
+			return ('00' + h).slice(-2) + ":" + ('00' + m).slice(-2);
+		},
+	});
+});
+			</pre>
+		</article>
+
 	</section>
 	<section>
 		<h2>Need Help?</h2>
